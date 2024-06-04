@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TutorialLibrary"
 include ':app'
-include ':Library Tutorial'
+include ':Library_Tutorial'
