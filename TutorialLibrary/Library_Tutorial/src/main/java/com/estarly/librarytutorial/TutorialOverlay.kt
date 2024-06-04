@@ -10,7 +10,7 @@ import com.estarly.librarytutorial.databinding.TutorialBinding
 class TutorialOverlay(private val activity: Activity,private val padding : Float = 10f) {
     private var currentStep = 0
     private val viewPositions = mutableListOf<Rect>()
-    fun showTutorial(steps: List<Step>) {
+    fun showTutorial(steps: List<Step>, animation : Animations = Animations.FADE_IN) {
         if (steps.isEmpty()) { throw IllegalArgumentException("Steps list is empty") }
 
         val binding = TutorialBinding.inflate(LayoutInflater.from(activity),null,false)
@@ -21,14 +21,15 @@ class TutorialOverlay(private val activity: Activity,private val padding : Float
             nextButton.setOnClickListener {
                 currentStep++
                 if (currentStep < steps.size) {
-                    updateTutorial(title = steps.map { it.title }[currentStep], binding = binding)
+                    updateTutorial(title = steps.map { it.title }[currentStep], binding = binding, animation = animation)
                 } else {
                     root.visibility = View.GONE
                 }
             }
+            btnClose.setOnClickListener { root.visibility = View.GONE }
             calculateViewPositions(views = steps.map { it.view }, binding = binding)
             currentStep = 0
-            updateTutorial(title = steps.map { it.title }[currentStep], binding = binding)
+            updateTutorial(title = steps.map { it.title }[currentStep], binding = binding, animation = animation)
         }
     }
     private fun calculateViewPositions(views: List<View>, binding: TutorialBinding) {
@@ -49,7 +50,7 @@ class TutorialOverlay(private val activity: Activity,private val padding : Float
             }
         }
     }
-    private fun updateTutorial(title: String, binding: TutorialBinding) {
+    private fun updateTutorial(title: String, binding: TutorialBinding, animation : Animations) {
         with(binding){
             val rect = viewPositions[currentStep]
             tutorialText.visibility = View.INVISIBLE
@@ -75,6 +76,12 @@ class TutorialOverlay(private val activity: Activity,private val padding : Float
                         gravity = android.view.Gravity.TOP
                     }
                 }
+                when (animation) {
+                    Animations.FADE_IN -> tutorialText.fadeInAnimation()
+                    Animations.WRITING -> tutorialText.writingAnimation(title)
+                    Animations.BOTH    -> tutorialText.combinedAnimation(title)
+                }
+
                 tutorialText.visibility = View.VISIBLE
             }
         }
