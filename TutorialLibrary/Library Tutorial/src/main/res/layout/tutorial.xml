@@ -1,11 +1,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <View
         android:id="@+id/background_overlay"
         android:layout_width="match_parent"
+        android:background="#DD000000"
         android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/backgroundListener"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00FFFFFF" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_tutorial"
+        android:layout_margin="20dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_close_tutorial"/>
 
     <TextView
         android:id="@+id/tutorialText"
@@ -13,7 +29,20 @@
         android:layout_height="wrap_content"
         android:text="Este es tu tutorial"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal|top" />
+        android:gravity="center"
+        android:textSize="28sp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_margin="16dp" />
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/circle_tutorial"
+        android:layout_margin="20dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="bottom|end"
+        android:padding="5dp"
+        android:src="@drawable/ic_next_tutorial"/>
+
 </FrameLayout>
