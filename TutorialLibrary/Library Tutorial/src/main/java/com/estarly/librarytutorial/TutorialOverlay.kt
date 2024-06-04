@@ -52,16 +52,31 @@ class TutorialOverlay(private val activity: Activity,private val padding : Float
     private fun updateTutorial(title: String, binding: TutorialBinding) {
         with(binding){
             val rect = viewPositions[currentStep]
-
+            tutorialText.visibility = View.INVISIBLE
             tutorialText.text = title
-
             val holeDrawable = HoleBackgroundDrawable(context = activity, targetRect = rect, paddingSize = padding)
             backgroundOverlay.background = holeDrawable
-
-//            tutorialText.x = rect.left.toFloat()
-//            tutorialText.y = rect.top.toFloat() - tutorialText.height - 16
-
-            root.visibility = View.VISIBLE
+            root.post {
+                val screenHeight = root.height
+                if (rect.centerY() > screenHeight / 2) {
+                    tutorialText.layoutParams = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        bottomMargin = screenHeight - rect.top + 16
+                        gravity = android.view.Gravity.BOTTOM
+                    }
+                } else {
+                    tutorialText.layoutParams = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        topMargin = rect.bottom + 16
+                        gravity = android.view.Gravity.TOP
+                    }
+                }
+                tutorialText.visibility = View.VISIBLE
+            }
         }
     }
 }
