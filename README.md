@@ -8,3 +8,4 @@ Library-Tutorial is a simple yet powerful library for Android that allows you to
 - **Flexible Targeting**: Target specific views or groups of views to create step-by-step guides.
 
 
+[![](https://jitpack.io/v/estarly07/Library-Tutorial.svg)](https://jitpack.io/#estarly07/Library-Tutorial)
